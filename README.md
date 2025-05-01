@@ -34,7 +34,7 @@ A beginner-friendly Python project designed to help users create personalized we
 
 ## 📂 Folder Structure
 ```
-meal-planner-cli/
+ai-meal-planner/
 ├── main.py
 ├── cli/
 │   └── interface.py
