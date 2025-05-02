@@ -71,4 +71,4 @@ This project aims to develop an AI-assisted meal planning application that gener
 - Scalability challenges when migrating to web/mobile platforms
 
 ## Approval
-This project charter has been approved by [Your Name] on [Date].
+This project charter has been approved by Sarah Dowd on May 2, 2025.
