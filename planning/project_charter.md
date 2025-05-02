@@ -1,74 +1,66 @@
-# Project Charter: AI-Assisted Meal Planning Application
+# Project Charter – AI-Assisted Meal Planner
 
-## Project Overview
-This project aims to develop an AI-assisted meal planning application that generates personalized weekly meal plans and recipes based on user preferences. The application will initially be developed as a command-line interface (CLI) solution with local data persistence, with plans to evolve into a cloud-based web application and eventually mobile applications.
+## 🧭 Project Overview
 
-## Project Objectives
-1. Create a functional MVP as a CLI application that generates personalized meal plans
-2. Develop a robust user profile system that captures and stores user preferences
-3. Implement AI-driven meal and recipe recommendations
-4. Build a portfolio-worthy project that demonstrates software engineering skills
-5. Establish a foundation that can be expanded to web and mobile platforms
+Design and build a command-line application that generates personalized weekly meal plans using user preferences and OpenAI's GPT-4. The project aims to explore applied AI, data modeling, and full-stack CLI architecture.
 
-## Success Criteria
-1. Application successfully generates meal plans that align with user preferences
-2. User profiles accurately capture and store preference information
-3. Data persists locally in a database
-4. System responds with appropriate recommendations based on input constraints
-5. Code is well-documented and follows best practices
-6. Application is completed before graduation
+---
 
-## Project Scope
+## 🎯 Goals
 
-### In Scope
-- CLI-based application (MVP)
-- Local database for user profiles and data persistence
-- User profile management system
-- AI-assisted meal planning functionality
-- Recipe generation capability
-- Support for various dietary preferences and restrictions
+* Create a user-friendly CLI app with persistent profiles
+* Generate AI-based meal plans using prompt engineering
+* Store plans locally with retrieval and regeneration
+* Practice real software planning: architecture, requirements, testing
 
-### Out of Scope (Future Phases)
-- Web application interface
-- Mobile applications
-- Cloud-based data storage
-- Social features (sharing recipes, etc.)
-- Integration with grocery delivery services
-- Meal prep instructions or videos
+---
 
-## Stakeholders
-- Developer (yourself) - Primary stakeholder
-- Academic advisors/professors - Secondary stakeholders
-- Potential employers (as portfolio project) - Indirect stakeholders
+## 🔧 Project Scope (MVP)
 
-## Resource Requirements
-- Development environment for Python
-- Local database system
-- AI/ML libraries and frameworks
-- Testing frameworks
-- Documentation tools
+* Single-user profiles stored in SQLite
+* Profile preferences (diet, time, servings, skill level)
+* GPT-4 used for natural language meal generation
+* Store 7-day plans and allow review later
+* CLI built using `typer` or `rich`
 
-## Constraints
-- Time: Must be completed before graduation
-- Technical knowledge: May need to learn new frameworks or technologies
-- Cost: Minimal budget for development tools or cloud services
+---
 
-## Timeline
-- Phase 1 (MVP): 2-3 months
-- Phase 2 (Web Application): 2-3 months after MVP
-- Phase 3 (Mobile Applications): 3-4 months after web application
+## ⛔ Out of Scope for MVP
 
-## Assumptions and Risks
+* Shopping list generation
+* Nutrition facts or calories
+* Mobile or web frontend
+* Multiple user accounts
 
-### Assumptions
-- Sufficient AI/ML libraries are available for recipe recommendation
-- Local database will be adequate for MVP testing
-- Python stack will be appropriate for all planned functionality
+---
 
-### Risks
-- Learning curve for AI/ML integration may be steeper than expected
-- Recipe data sources may be limited or difficult to access
-- Scalability challenges when migrating to web/mobile platforms
+## 🧑‍💻 Stakeholders
 
-## Approval
-This project charter has been approved by Sarah Dowd on May 2, 2025.
+* Primary: You (Developer, Owner)
+* Secondary: Recruiters, Reviewers (portfolio visibility)
+
+---
+
+## ⏳ Timeline Overview
+
+* Week 1–2: Planning and CLI setup
+* Week 3–4: AI integration and meal plan formatting
+* Week 5–6: Plan history, error handling, polish
+
+---
+
+## ✅ Success Criteria
+
+* Full CLI app runs locally and generates useful plans
+* Clean codebase, modular structure, consistent CLI UX
+* Planning folder with docs, Mermaid diagrams, and readme
+* GitHub repo with milestone tags and clear commit history
+
+---
+
+## 🔮 Post-MVP Vision
+
+* Cloud backend for hosting user data
+* Shopping list exports
+* Web frontend (Tauri or Flask)
+* Feedback loop for plan scoring
