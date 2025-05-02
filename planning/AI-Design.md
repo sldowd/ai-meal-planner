@@ -60,9 +60,9 @@ Day X: [Meal Name] - [Short description with ingredients]
 graph TD
     A[User triggers meal plan generation] --> B[Load user preferences from DB]
     B --> C[Format prompt with preferences]
-    C --> D[Call OpenAI API (GPT-4)]
+    C --> D[Call OpenAI API - GPT-4]
     D --> E[Receive meal plan text]
-    E --> F[Save plan to DB (as JSON)]
+    E --> F[Save plan to DB - as JSON]
     F --> G[Display plan in CLI]
 ```
 
