@@ -24,3 +24,24 @@ cursor.execute("""
 
 conn.commit()
 conn.close()
+
+def save_user_profile(profile):
+    cursor = conn.cursor()
+
+    cursor.execute("DELETE FROM users")  # overwrite for MVP
+
+    cursor.execute("""
+        INSERT INTO users (name, skill_level, diet_tags, allergies, time_per_meal, servings, budget)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+    """, (
+        profile["name"],
+        profile["skill_level"],
+        profile["diet_tags"],
+        profile["allergies"],
+        profile["time_per_meal"],
+        profile["servings"],
+        profile["budget"]
+    ))
+
+    conn.commit()
+    conn.close()
