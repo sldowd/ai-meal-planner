@@ -8,7 +8,7 @@ DB_PATH = "meal_planner.db"
 def get_db_connection():
     conn = None
     try:
-        conn = sqlite3.connect(DB_Path)
+        conn = sqlite3.connect(DB_PATH)
         yield conn
     finally:
         if conn:

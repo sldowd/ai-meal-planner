@@ -43,4 +43,8 @@ def create_profile():
 
 @app.command()
 def view_profile():
-    retrieve_user_profile()
+    # Retrieve user profile from database
+    user_profile = retrieve_user_profile()
+    # Loop through user_profile dictionary and print
+    for key, value in user_profile.items():
+        print(f"{key}: {value}")
