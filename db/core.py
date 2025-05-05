@@ -29,7 +29,17 @@ def init_db():
                 servings INTEGER,
                 budget REAL
             )
-            """)
+        """)
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS meal_plans (
+                id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                user_id INTEGER NOT NULL,
+                week_start TEXT NOT NULL,
+                created_at TEXT NOT NULL,
+                plan_json TEXT NOT NULL,
+                FOREIGN KEY (user_id) references users (id)
+            )
+        """)
 
         conn.commit()
 
