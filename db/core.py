@@ -95,7 +95,7 @@ def save_meal_plan(meal_plan):
                 VALUES (?, ?, ?, ?)
             """, (
                 meal_plan["user_id"],
-                meal_plam["week_start"],
+                meal_plan["week_start"],
                 meal_plan["created_at"],
                 meal_plan["plan_json"]
             ))
