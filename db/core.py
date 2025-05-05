@@ -83,3 +83,26 @@ def retrieve_user_profile():
         columns = [description[0] for description in cursor.description]
         return {columns[i]: rows[0][i] for i in range(len(columns))}
     return None
+
+# Save meal plan to the database
+def save_meal_plan(meal_plan):
+    with get_db_connection() as conn:
+        cursor = conn.cursor()
+        
+        try:
+            cursor.execute("""
+                INSERT INTO meal_plans (user_id, week_start, created_at, plan_json)
+                VALUES (?, ?, ?, ?)
+            """, (
+                meal_plan["user_id"],
+                meal_plam["week_start"],
+                meal_plan["created_at"],
+                meal_plan["plan_json"]
+            ))
+
+            conn.commit()
+            return True
+        except sqlite3.Error as e:
+            conn.rollback()
+            print(f"Database error: {e}")
+            return False
