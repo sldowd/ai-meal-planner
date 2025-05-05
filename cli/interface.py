@@ -1,4 +1,5 @@
 import typer
+from db.core import save_user_profile
 
 app = typer.Typer(no_args_is_help=True)
 
@@ -6,11 +7,6 @@ app = typer.Typer(no_args_is_help=True)
 def main():
     """CLI for Meal Planning."""
     pass
-
-@app.command()
-def hello():
-    """Say hi and test the CLI."""
-    typer.echo("👋 Hello! Your CLI is working.")
 
 @app.command()
 def create_profile():
@@ -31,3 +27,16 @@ def create_profile():
     typer.echo(f"Time per Meal: {time} minutes")
     typer.echo(f"Servings: {servings}")
     typer.echo(f"Budget: ${budget}")
+
+    profile = {
+        name: "name",
+        skill: "skill",
+        diet: "diet",
+        allergies: "allergies",
+        time: "time",
+        servings: "servings",
+        budget: "budget"
+    }
+
+    save_user_profile(profile)
+    typer.echo("💾 Profile saved to database.")
