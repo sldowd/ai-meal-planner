@@ -20,28 +20,35 @@ def build_meal_plan_prompt():
     """
     Convert user profile data into a well-structured prompt for GPT
     """
-    user_profile = retrieve_user_profile()
-
-    instructions = []
-
-    for key, value in user_profile.items():
-        instructions.append(f"{key}: {value}\n")
-
-    instructions_text = "\n".join(instructions)
-
     try:
-            # Using the Responses API
-            response = client.responses.create(
-                model="gpt-4o",  # Using an available model
-                instructions="You are a meal planning assistant that creates personalized meal plans based on user preferences and dietary needs.",
-                input=f"Based on this user profile:\n\n{instructions_text}\n\nGenerate a seven day meal plan. Include breakfast, lunch, dinner, and a snack for each day."
-            )
-            
-            # The output is available in response.output_text
-            print(response.output)
-            return response.output_text
+        user_profile = retrieve_user_profile()
+        if not user_profile:
+             print("User profile not found")
+             return
+
+        instructions = []
+
+        for key, value in user_profile.items():
+            instructions.append(f"{key}: {value}\n")
+
+        instructions_text = "\n".join(instructions)
+
+        try:
+                # Using the Responses API
+                response = client.responses.create(
+                    model="gpt-4o",  # Using an available model
+                    instructions="You are a meal planning assistant that creates personalized meal plans based on user preferences and dietary needs.",
+                    input=f"Based on this user profile:\n\n{instructions_text}\n\nGenerate a seven day meal plan. Include breakfast, lunch, dinner, and a snack for each day."
+                )
+                
+                # The output is available in response.output_text
+                print(response.output)
+                return response.output_text
+        except Exception as e:
+            print(f"Error: {e}")
+
     except Exception as e:
-        print(f"Error: {e}")
+         print(f"Error: {e}")
 
     pass
 
