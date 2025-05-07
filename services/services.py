@@ -1,5 +1,9 @@
-# Structure for services/ai.py
+import sys
 import os
+
+# Add the project root to the Python path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from openai import OpenAI
 from dotenv import load_dotenv
 from db.core import retrieve_user_profile
@@ -10,21 +14,7 @@ api_key = os.getenv("OPEN_AI_KEY")
 print(f"API Key loaded: {'Yes' if api_key else 'No'}")
 
 client = OpenAI(api_key=api_key)
-
-try:
-    response = client.chat.completions.create(
-        messages=[{
-            "role": "user",
-            "content": "Say this is a test",
-        }],
-        model="gpt-4.1",
-    )
-    print(response.choices[0].message.content)
-except Exception as e:
-    print(f"Error: {e}")
-
-
-print(response.output_text)
+        
 
 def build_meal_plan_prompt():
     """
@@ -32,24 +22,27 @@ def build_meal_plan_prompt():
     """
     user_profile = retrieve_user_profile()
 
-    
     instructions = []
 
     for key, value in user_profile.items():
         instructions.append(f"{key}: {value}\n")
 
-    prompt_instructions = "\n".join(instructions)
+    instructions_text = "\n".join(instructions)
 
     try:
-        response = client.responses.create(
-            model="gpt-4.1",
-            instructions=instructions,
-            input="Generate a seven day meal plan based on the parameters in the instructions. Include breakfast, lunch, dinner, and a snack."
-        )
+            # Using the Responses API
+            response = client.responses.create(
+                model="gpt-4o",  # Using an available model
+                instructions="You are a meal planning assistant that creates personalized meal plans based on user preferences and dietary needs.",
+                input=f"Based on this user profile:\n\n{instructions_text}\n\nGenerate a seven day meal plan. Include breakfast, lunch, dinner, and a snack for each day."
+            )
+            
+            # The output is available in response.output_text
+            print(response.output)
+            return response.output_text
     except Exception as e:
         print(f"Error: {e}")
 
-    print(response.output_text)
     pass
 
 def generate_meal_plan(user_profile):
