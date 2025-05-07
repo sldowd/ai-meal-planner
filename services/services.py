@@ -30,13 +30,15 @@ def build_meal_plan_prompt():
     """
     Convert user profile data into a well-structured prompt for GPT
     """
-    user_profile = retrieve_user_profile
+    user_profile = retrieve_user_profile()
 
     
-    instructions = ""
+    instructions = []
 
     for key, value in user_profile.items():
         instructions.append(f"{key}: {value}\n")
+
+    prompt_instructions = "\n".join(instructions)
 
     try:
         response = client.responses.create(
@@ -47,6 +49,7 @@ def build_meal_plan_prompt():
     except Exception as e:
         print(f"Error: {e}")
 
+    print(response.output_text)
     pass
 
 def generate_meal_plan(user_profile):
@@ -64,3 +67,5 @@ def parse_meal_plan_response(response_text):
     """
     # TODO: Extract days, meals, descriptions from response
     pass
+
+build_meal_plan_prompt()
