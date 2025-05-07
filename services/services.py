@@ -1,11 +1,33 @@
 # Structure for services/ai.py
 import os
-import openai
+from openai import OpenAI
 from dotenv import load_dotenv
 
 # Load API key from .env file
 load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
+api_key = os.getenv("OPEN_AI_KEY")
+print(f"API Key loaded: {'Yes' if api_key else 'No'}")
+
+client = OpenAI(api_key=api_key)
+
+try:
+    response = client.chat.completions.create(
+        messages=[{
+            "role": "user",
+            "content": "Say this is a test",
+        }],
+        model="gpt-4.1",
+    )
+    print(response.choices[0].message.content)
+except Exception as e:
+    print(f"Error: {e}")
+
+response = client.responses.create(
+    model="gpt-4.1",
+    input="Write a one-sentence bedtime story about a unicorn."
+)
+
+print(response.output_text)
 
 def build_meal_plan_prompt(user_profile):
     """
