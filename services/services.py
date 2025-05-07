@@ -6,7 +6,8 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 
 from openai import OpenAI
 from dotenv import load_dotenv
-from db.core import retrieve_user_profile
+from datetime import datetime
+from db.core import retrieve_user_profile, save_meal_plan
 
 # Load API key from .env file
 load_dotenv()
@@ -41,24 +42,35 @@ def build_meal_plan_prompt():
                     input=f"Based on this user profile:\n\n{instructions_text}\n\nGenerate a seven day meal plan. Include breakfast, lunch, dinner, and a snack for each day."
                 )
                 
-                # The output is available in response.output_text
+                # Output while testing
                 print(response.output)
-                return response.output_text
+                
         except Exception as e:
             print(f"Error: {e}")
+
+         # Access the meal plan content directly
+        meal_plan_content = response.output[0].content[0].text
+                
+        # Format for database storage
+        formatted_meal_plan = {
+            "user_id": user_profile["id"],
+            "week_start": datetime.now().strftime("%Y-%m-%d"),
+            "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "plan_json": meal_plan_content  # Store the raw text
+        }
+
+        # Save formatted meal plan to database
+        
+        save_result = save_meal_plan(formatted_meal_plan)
+        if save_result:
+             print("Meal plan saved successfully")
+
+        return formatted_meal_plan
 
     except Exception as e:
          print(f"Error: {e}")
 
-    pass
-
-def generate_meal_plan(user_profile):
-    """
-    Call OpenAI API with user profile data to generate a meal plan
-    """
-    # TODO: Build prompt
-    # TODO: Call OpenAI API
-    # TODO: Parse and structure the response
+            
     pass
 
 def parse_meal_plan_response(response_text):
@@ -68,4 +80,3 @@ def parse_meal_plan_response(response_text):
     # TODO: Extract days, meals, descriptions from response
     pass
 
-build_meal_plan_prompt()
