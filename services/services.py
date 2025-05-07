@@ -2,6 +2,7 @@
 import os
 from openai import OpenAI
 from dotenv import load_dotenv
+from db.core import retrieve_user_profile
 
 # Load API key from .env file
 load_dotenv()
@@ -22,19 +23,30 @@ try:
 except Exception as e:
     print(f"Error: {e}")
 
-response = client.responses.create(
-    model="gpt-4.1",
-    input="Write a one-sentence bedtime story about a unicorn."
-)
 
 print(response.output_text)
 
-def build_meal_plan_prompt(user_profile):
+def build_meal_plan_prompt():
     """
     Convert user profile data into a well-structured prompt for GPT
     """
-    # TODO: Format the user profile data into a clear prompt
-    # Consider extracting: diet_tags, skill_level, time_per_meal, etc.
+    user_profile = retrieve_user_profile
+
+    
+    instructions = ""
+
+    for key, value in user_profile.items():
+        instructions.append(f"{key}: {value}\n")
+
+    try:
+        response = client.responses.create(
+            model="gpt-4.1",
+            instructions=instructions,
+            input="Generate a seven day meal plan based on the parameters in the instructions. Include breakfast, lunch, dinner, and a snack."
+        )
+    except Exception as e:
+        print(f"Error: {e}")
+
     pass
 
 def generate_meal_plan(user_profile):
