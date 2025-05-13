@@ -15,7 +15,13 @@ api_key = os.getenv("OPEN_AI_KEY")
 print(f"API Key loaded: {'Yes' if api_key else 'No'}")
 
 client = OpenAI(api_key=api_key)
-        
+
+def parse_meal_plan_response(response_text):
+    """
+    Convert the raw API response into structured data for storage
+    """
+    # TODO: Extract days, meals, descriptions from response
+    pass        
 
 def build_meal_plan_prompt():
     """
@@ -72,10 +78,4 @@ def build_meal_plan_prompt():
             
     pass
 
-def parse_meal_plan_response(response_text):
-    """
-    Convert the raw API response into structured data for storage
-    """
-    # TODO: Extract days, meals, descriptions from response
-    pass
 

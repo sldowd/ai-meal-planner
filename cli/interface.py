@@ -1,5 +1,6 @@
 import typer
 from db.core import save_user_profile, retrieve_user_profile
+from services.services import build_meal_plan_prompt, parse_meal_plan_response
 
 app = typer.Typer(no_args_is_help=True)
 
@@ -48,3 +49,11 @@ def view_profile():
     # Loop through user_profile dictionary and print
     for key, value in user_profile.items():
         print(f"{key}: {value}")
+
+
+@app.command()
+def generate_meal_plan():
+    # call prompt builder from ai services
+    meal_plan = build_meal_plan_prompt()
+    
+    parse_meal_plan_response(meal_plan)
